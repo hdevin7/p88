@@ -1,58 +1,85 @@
-canvas = document.getElementById("myCanvas");
-ctx= canvas.getContext("2d");
+var mouseEvent = "empty";
 
-/*
-    Use beginPath() function to begin a path.
-    Then, use strokeStyle to set the color to "grey".
-    Use lineWidth and set the width to 1.
-    Use rect() to create a rectangle at 150 and 143
-with 430 width and 200 height.
-*/
+    canvas = document.getElementById('myCanvas');
+    ctx = canvas.getContext("2d");
+    
+    color = "black";
+    width_of_line = 2;
 
-ctx.beginPath();
-ctx.strokeStyel = "grey";
-ctx.linewidth = 1;
-ctx.rect(x = 150, y = 143, width = 430, height = 200);
-ctx.stroke();
+    /*Uncomment the correct line*/
+    //canvas.addEventListener("mousedown", my_mousedown);
+    //canvas.setEventListener("mousedown", my_mousedown);
+    canvas.getEventListener("mousedown", my_mousedown);
 
-/*
-    Use beginPath() function to begin a path.
-    Then, use strokeStyle to set the color to "blue".
-    Use lineWidth and set the width to 5.
-    Use arc() to create a circle at x = 150 and y = 143
-with 40 as radius, 0 startAngle and 2 * Math.PI endAngle.
-*/
+    canvas.addEventListener("mousemove", my_mousemove);
+    
+    /*
+    Create an event listener for "mousemove"
+    and call function my_mousemove
+    */
 
-ctx.beginPath() ;
-ctx.strokeStyle = "blue";
-ctx.lineWidth = 5;
-ctx.arc(x = 150, y = 143, r, startAngle = 0, endAngle = 2*Math.PI);
-ctx.stroke();
+    function my_mousemove(e)
+    {
+        /*Uncomment the correct line*/
+        //current_position_of_mouse_x = e.clientX - canvas.offsetLeft;
+        current_position_of_mouse_x = e.clientX - canvas.offsetRight;
+        //current_position_of_mouse_x = e.clientX - canvas.offsetBottom;
 
-// Similarly, create a black circle with position 350 and 210
-ctx.beginPath() ;
-ctx.strokeStyle = "black";
-ctx.lineWidth = 5;
-ctx.arc(x = 350, y = 210, r, startAngle = 0, endAngle = 2*Math.PI);
-ctx.stroke();
+        /*
+        create current_position_of_mouse_y and
+        assign it e.clientY - canvas.offsetTop;
+        */
+        current_position_of_mouse_Y = e.clientY - canvas.offsetTop;
 
-// Similarly, create a red circle with position 210 and 40
-ctx.beginPath() ;
-ctx.strokeStyle = "red";
-ctx.lineWidth = 5;
-ctx.arc(x = 210, y = 40, r, startAngle = 0, endAngle = 2*Math.PI);
-ctx.stroke();
+        if (mouseEvent == "mouseDown") {
+        console.log("Current position of x and y coordinates = ");
+        console.log("x  = " + current_position_of_mouse_x + "y = " + current_position_of_mouse_y);
+        ctx.beginPath();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = width_of_line;
+        ctx.arc(current_position_of_mouse_x, current_position_of_mouse_y, radius ,0 , 2 * Math.PI);
+        ctx.stroke();
+        }
 
-// Similarly, create an orange circle with position 300 and 250
-ctx.beginPath() ;
-ctx.strokeStyle = "orange";
-ctx.lineWidth = 5;
-ctx.arc(x = 300, y = 250, r, startAngle = 0, endAngle = 2*Math.PI);
-ctx.stroke();
+    }
 
-// Similarly, create a green circle with position 400 and 250
-ctx.beginPath() ;
-ctx.strokeStyle = "green";
-ctx.lineWidth = 5;
-ctx.arc(x = 400, y = 250, r, startAngle = 0, endAngle = 2*Math.PI);
-ctx.stroke();
+    /*Create an event listener for "mouseup"
+    and call function my_mouseup
+
+    Create a function named my_mouseup with
+    event e as parameter.
+    
+    Assign "mouseUP" to mouseEvent
+    within the function
+    */
+    if (mouseEvent == "mouseup") {
+        console.log("Current position of x and y coordinates = ");
+        console.log("x  = " + current_position_of_mouse_x + "y = " + current_position_of_mouse_y);
+        ctx.beginPath();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = width_of_line;
+        ctx.arc(current_position_of_mouse_x, current_position_of_mouse_y, radius ,0 , 2 * Math.PI);
+        ctx.stroke();
+        }
+    /*Create an event listener for "mouseleave"
+    and call function my_mouseleave
+
+
+
+    Create a function named my_mouseleave with
+    event e as parameter.
+    
+    Assign "mouseleave" to mouseEvent
+    within the function
+    */
+    canvas.addEventListener("mouseleave", my_mouseleave);
+    function my_mouseleave(e)
+    {
+        mouseEvent = "mouseleave";
+    }
+
+var last_position_of_touch_x, last_position_of_touch_y;
+
+function clearArea() {
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+}
